@@ -1,8 +1,29 @@
 #!/usr/bin/env node
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
 // node_modules/.pnpm/depd@2.0.0/node_modules/depd/index.js
 var require_depd = __commonJS({
@@ -25370,9 +25391,9 @@ var require_express_ws = __commonJS({
   }
 });
 
-// node_modules/.pnpm/net-browserify@https+++codeload.github.com+zardoy+prismarinejs-net-browserify+tar.gz+e7_d084959fd128e0297bdf57e2337c295f/node_modules/net-browserify/api.js
+// node_modules/.pnpm/net-browserify@https+++codeload.github.com+zardoy+prismarinejs-net-browserify+tar.gz+18_8aae921787086f262e25bf669f183c44/node_modules/net-browserify/api.js
 var require_api = __commonJS({
-  "node_modules/.pnpm/net-browserify@https+++codeload.github.com+zardoy+prismarinejs-net-browserify+tar.gz+e7_d084959fd128e0297bdf57e2337c295f/node_modules/net-browserify/api.js"(exports2, module2) {
+  "node_modules/.pnpm/net-browserify@https+++codeload.github.com+zardoy+prismarinejs-net-browserify+tar.gz+18_8aae921787086f262e25bf669f183c44/node_modules/net-browserify/api.js"(exports2, module2) {
     var net = require("net");
     var http = require("http");
     var crypto = require("crypto");
@@ -25403,6 +25424,18 @@ var require_api = __commonJS({
       const myLog = options.log ? console.log : function() {
       };
       const artificialDelay = options.artificialDelay || 0;
+      function getArtificialDelay() {
+        if (Array.isArray(artificialDelay) && artificialDelay.length === 2) {
+          return Math.random() * (artificialDelay[1] - artificialDelay[0]) + artificialDelay[0];
+        }
+        return artificialDelay || 0;
+      }
+      function getMaxArtificialDelay() {
+        if (Array.isArray(artificialDelay) && artificialDelay.length === 2) {
+          return artificialDelay[1];
+        }
+        return artificialDelay || 0;
+      }
       const maxPacketsPerSecond = options.maxPacketsPerSecond || 0;
       var app2 = express2();
       var jsonParser = bodyParser.json();
@@ -25622,11 +25655,12 @@ var require_api = __commonJS({
           }
           packetsLastSecond.fromClient++;
           checkPacketRate();
-          if (artificialDelay > 0) {
+          const delay = getArtificialDelay();
+          if (delay > 0) {
             setTimeout(() => {
               socket.write(data, "binary", function() {
               });
-            }, artificialDelay);
+            }, delay);
           } else {
             socket.write(data, "binary", function() {
             });
@@ -25635,11 +25669,12 @@ var require_api = __commonJS({
         socket.on("data", function(chunk) {
           packetsLastSecond.fromServer++;
           checkPacketRate();
-          if (artificialDelay > 0) {
+          const delay = getArtificialDelay();
+          if (delay > 0) {
             setTimeout(() => {
               ws.send(chunk, { binary: true }, function(err) {
               });
-            }, artificialDelay);
+            }, delay);
           } else {
             ws.send(chunk, { binary: true }, function(err) {
             });
@@ -25667,11 +25702,25 @@ var require_api = __commonJS({
             ws.send("proxy-shutdown:Minecraft server closed the connection.", () => {
             });
           }
-          ws.close();
+          const delay = getMaxArtificialDelay();
+          if (delay > 0) {
+            setTimeout(() => {
+              ws.close();
+            }, delay);
+          } else {
+            ws.close();
+          }
           delete wsConnections[token];
         });
         ws.on("close", function() {
-          socket.end();
+          const delay = getMaxArtificialDelay();
+          if (delay > 0) {
+            setTimeout(() => {
+              socket.end();
+            }, delay);
+          } else {
+            socket.end();
+          }
           myLog("Websocket connection closed (" + token + ")");
           delete wsConnections[token];
         });
@@ -53722,20 +53771,20 @@ var require_config = __commonJS({
           ip: "wss://ws.fuchsmc.net"
         },
         {
-          ip: "wss://play2.mcraft.fun"
+          ip: "wss://play2.mcraft.fun",
+          description: "Mirror for play.mcraft.fun"
+        },
+        {
+          ip: "wss://play3.mcraft.fun",
+          description: "Mirror for play.mcraft.fun"
         },
         {
           ip: "wss://play-creative.mcraft.fun",
           description: "Might be available soon, stay tuned!"
-        },
-        {
-          ip: "kaboom.pw",
-          version: "1.20.3",
-          description: "Very nice a polite server. Must try for everyone!"
         }
       ],
       rightSideText: "A Minecraft client clone in the browser!",
-      splashText: "There is nothing we can do",
+      splashText: "Mind the bugs and have fun!",
       splashTextFallback: "Welcome!",
       pauseLinks: [
         [
@@ -53749,11 +53798,6 @@ var require_config = __commonJS({
       ],
       defaultUsername: "mcrafter{0-9999}",
       mobileButtons: [
-        {
-          action: "general.drop",
-          actionHold: "general.dropStack",
-          label: "Q"
-        },
         {
           action: "general.selectItem",
           actionHold: "",
@@ -53808,20 +53852,20 @@ var require_config2 = __commonJS({
           ip: "wss://ws.fuchsmc.net"
         },
         {
-          ip: "wss://play2.mcraft.fun"
+          ip: "wss://play2.mcraft.fun",
+          description: "Mirror for play.mcraft.fun"
+        },
+        {
+          ip: "wss://play3.mcraft.fun",
+          description: "Mirror for play.mcraft.fun"
         },
         {
           ip: "wss://play-creative.mcraft.fun",
           description: "Might be available soon, stay tuned!"
-        },
-        {
-          ip: "kaboom.pw",
-          version: "1.20.3",
-          description: "Very nice a polite server. Must try for everyone!"
         }
       ],
       rightSideText: "A Minecraft client clone in the browser!",
-      splashText: "There is nothing we can do",
+      splashText: "Mind the bugs and have fun!",
       splashTextFallback: "Welcome!",
       pauseLinks: [
         [
@@ -53835,11 +53879,6 @@ var require_config2 = __commonJS({
       ],
       defaultUsername: "mcrafter{0-9999}",
       mobileButtons: [
-        {
-          action: "general.drop",
-          actionHold: "general.dropStack",
-          label: "Q"
-        },
         {
           action: "general.selectItem",
           actionHold: "",
@@ -53928,8 +53967,19 @@ if (isProd) {
   app.use((req, res, next) => {
     res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
     res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    if (req.path.endsWith(".wasm")) {
+      res.setHeader("Content-Type", "application/wasm");
+    }
     next();
   });
+  try {
+    const rendererPkg = require.resolve("minecraft-renderer/package.json");
+    const rendererDir = path.dirname(rendererPkg);
+    app.get("/wasm_mesher.js", (req, res) => res.sendFile(path.join(rendererDir, "public/wasm_mesher.js")));
+    app.get("/wasm_mesher_bg.wasm", (req, res) => res.sendFile(path.join(rendererDir, "public/wasm_mesher_bg.wasm")));
+  } catch (err) {
+    console.warn("Failed to locate minecraft-renderer package for wasm mesher assets", err);
+  }
   app.use(express.static(path.join(__dirname, "./public")));
   app.use(express.static(path.join(__dirname, "./dist")));
 }
