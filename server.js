@@ -53755,10 +53755,15 @@ var require_config = __commonJS({
       version: 1,
       defaultHost: "<from-proxy>",
       defaultProxy: "https://proxy.mcraft.fun",
+      defaultProxies: [
+        "https://proxy.mcraft.fun",
+        "https://proxy2.mcraft.fun",
+        "https://proxy3.mcraft.fun",
+        "https://pwc.koyeb.app"
+      ],
       mapsProvider: "https://maps.mcraft.fun/",
       skinTexturesProxy: "",
-      peerJsServer: "",
-      peerJsServerFallback: "https://p2p.mcraft.fun",
+      p2pRelayServer: "wss://p2p.mcraft.fun",
       promoteServers: [
         {
           ip: "wss://play.mcraft.fun"
@@ -53784,7 +53789,7 @@ var require_config = __commonJS({
         }
       ],
       rightSideText: "A Minecraft client clone in the browser!",
-      splashText: "Mind the bugs and have fun!",
+      splashText: "Everything is everything now!",
       splashTextFallback: "Welcome!",
       pauseLinks: [
         [
@@ -53836,10 +53841,15 @@ var require_config2 = __commonJS({
       version: 1,
       defaultHost: "<from-proxy>",
       defaultProxy: "https://proxy.mcraft.fun",
+      defaultProxies: [
+        "https://proxy.mcraft.fun",
+        "https://proxy2.mcraft.fun",
+        "https://proxy3.mcraft.fun",
+        "https://pwc.koyeb.app"
+      ],
       mapsProvider: "https://maps.mcraft.fun/",
       skinTexturesProxy: "",
-      peerJsServer: "",
-      peerJsServerFallback: "https://p2p.mcraft.fun",
+      p2pRelayServer: "wss://p2p.mcraft.fun",
       promoteServers: [
         {
           ip: "wss://play.mcraft.fun"
@@ -53865,7 +53875,7 @@ var require_config2 = __commonJS({
         }
       ],
       rightSideText: "A Minecraft client clone in the browser!",
-      splashText: "Mind the bugs and have fun!",
+      splashText: "Everything is everything now!",
       splashTextFallback: "Welcome!",
       pauseLinks: [
         [

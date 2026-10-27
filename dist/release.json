@@ -1,5 +1,5 @@
 {
-  "latestTag": "v2.3.0",
-  "changelog": "\n\n## [vv2.3.0](releases/tag/vv2.3.0) - 2026-09-08\n<!-- bump-type:minor -->\n### New Features\n\n- Official voice-chat integration (likekit Voice Chat is enabled on play.mcraft.fun) [`f1c8a0c`](/commit/f1c8a0c0af55eff26febe9c577dbeb61f3a13811)\n### Bug Fixes\n\n- joining to voice chat is listen-only until mic key is pressed (request permission there) [`da4ffe3`](/commit/da4ffe3e1cf01ff0320ad9e9dd6d2f93522ebc71)",
-  "previousTag": "v2.2.0"
+  "latestTag": "v2.4.0",
+  "changelog": "\n\n## [vv2.4.0](releases/tag/vv2.4.0) - 2026-10-25\n<!-- bump-type:minor -->\n### New Features\n\n- support 26.1 — update all deps: minecraft-data, protocol, renderer, mineflayer, chunk [`964c11d`](/commit/964c11dc7a907b14da7a0cb140ef2305b1dc492e)\n- add proxy auto-select and proxies select menu! ([#389](/issues/389))\n- replace legacy peerjs p2p gameplay solution with modern & more reliable trystero + turn server in resitrcited net conditions ([#438](/issues/438))\n- Add force disable touch controls setting for convertible laptops\n ([#62](/issues/62))\n### Bug Fixes\n\n- patch so minimap works even with degraded perf [`a6a6e6a`](/commit/a6a6e6ab45492155e66a485ede30286b09e9dae3)\n- more friendly UI P2P messages [`e3cd2ba`](/commit/e3cd2ba1077f6f0e2394d108a2caf77d4af431f4)",
+  "previousTag": "v2.3.0"
 }
