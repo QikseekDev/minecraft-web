@@ -53985,8 +53985,11 @@ if (isProd) {
   try {
     const rendererPkg = require.resolve("minecraft-renderer/package.json");
     const rendererDir = path.dirname(rendererPkg);
-    app.get("/wasm_mesher.js", (req, res) => res.sendFile(path.join(rendererDir, "public/wasm_mesher.js")));
-    app.get("/wasm_mesher_bg.wasm", (req, res) => res.sendFile(path.join(rendererDir, "public/wasm_mesher_bg.wasm")));
+    for (const file of ["wasm_mesher.js", "wasm_mesher_bg.wasm"]) {
+      const filePath = path.join(rendererDir, "public", file);
+      if (fs.existsSync(filePath))
+        app.get(`/${file}`, (req, res) => res.sendFile(filePath));
+    }
   } catch (err) {
     console.warn("Failed to locate minecraft-renderer package for wasm mesher assets", err);
   }
